@@ -1,6 +1,9 @@
 <?php
+// 1. LOGIC MOVED TO TOP
 require_once 'db.php';
-include 'admin_header.php';
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 // Verifica se o ID do funcionário foi passado na URL
 if (!isset($_GET['id'])) {
@@ -30,6 +33,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     header("Location: gerenciar_funcionarios.php");
     exit();
 }
+
+// 2. NOW INCLUDE HEADER
+include 'admin_header.php';
 
 // --- BUSCA OS DADOS ATUAIS DO FUNCIONÁRIO PARA PREENCHER O FORMULÁRIO ---
 $stmt_busca = $conexao->prepare("SELECT * FROM funcionarios WHERE id = ?");

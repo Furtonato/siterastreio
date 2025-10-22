@@ -1,6 +1,9 @@
 <?php
+// 1. LOGIC MOVED TO TOP
 require_once 'db.php';
-include 'admin_header.php';
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 // --- LÓGICA PARA ATUALIZAR OS DADOS ---
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -39,6 +42,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     exit();
 }
 
+// 2. NOW INCLUDE HEADER
+include 'admin_header.php';
 
 // --- LÓGICA PARA BUSCAR DADOS E EXIBIR NO FORMULÁRIO ---
 $resultado = $conexao->query("SELECT * FROM motoristas WHERE id = 1 LIMIT 1");

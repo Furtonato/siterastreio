@@ -38,6 +38,8 @@ body {
     padding: 20px 0;
     position: fixed;
     height: 100%;
+    z-index: 100; /* Garante que fique acima do conteúdo */
+    overflow-y: auto; /* Permite scroll se o menu for muito grande */
 }
 
 .sidebar-header {
@@ -57,16 +59,19 @@ body {
     text-decoration: none;
     gap: 15px;
     transition: background-color 0.2s, color 0.2s;
+    white-space: nowrap; /* Evita quebra de linha no texto do menu */
 }
 .nav-item a:hover { background-color: rgba(0, 0, 0, 0.2); color: #fff; }
 .nav-item.active a { background-color: var(--primary-color); color: #fff; font-weight: 600; }
-.nav-item svg { width: 20px; height: 20px; fill: currentColor; }
-.nav-footer { margin-top: auto; }
+.nav-item svg { width: 20px; height: 20px; fill: currentColor; flex-shrink: 0; /* Impede que o ícone encolha */ }
+.nav-item span { flex-grow: 1; /* Ocupa espaço restante */}
+.nav-footer { margin-top: auto; } /* Empurra o 'Sair' para baixo */
 
 .main-content {
-    margin-left: 260px;
+    margin-left: 260px; /* Mesmo width da sidebar */
     flex-grow: 1;
     padding: 30px;
+    width: calc(100% - 260px); /* Garante que o conteúdo não ultrapasse a tela */
 }
 
 /* --- COMPONENTES (CARDS, BOTÕES, FORMULÁRIOS) --- */
@@ -84,8 +89,10 @@ body {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 30px;
+    flex-wrap: wrap; /* Permite quebrar linha em telas menores */
+    gap: 15px; /* Espaçamento entre título e botão */
 }
-.page-header h1 { font-size: 1.8em; color: var(--text-primary); }
+.page-header h1 { font-size: 1.8em; color: var(--text-primary); margin: 0; }
 
 .btn {
     padding: 10px 18px;
@@ -98,6 +105,14 @@ body {
     color: #fff;
     display: inline-block;
     text-align: center;
+    transition: background-color 0.2s, transform 0.1s; /* Adiciona transição */
+    white-space: nowrap; /* Evita quebra de linha no botão */
+}
+.btn:hover {
+    filter: brightness(0.9); /* Escurece um pouco no hover */
+}
+.btn:active {
+    transform: scale(0.98); /* Efeito de clique */
 }
 .btn-primary { background-color: var(--primary-color); }
 .btn-success { background-color: var(--success-color); }
@@ -111,14 +126,103 @@ body {
     font-weight: 600;
     margin-bottom: 8px;
     font-size: 0.9em;
+    color: var(--text-primary);
 }
 .form-group input[type="text"],
-.form-group input[type="password"] {
+.form-group input[type="password"],
+.form-group input[type="email"], /* Adiciona outros tipos comuns */
+.form-group input[type="number"],
+.form-group input[type="date"],
+.form-group textarea {
     width: 100%;
     padding: 12px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 1em;
+    font-family: inherit; /* Usa a mesma fonte do body */
+    line-height: 1.4; /* Melhora leitura em textareas */
+    background-color: #fff;
+    color: var(--text-primary);
+    box-sizing: border-box; /* Importante */
+}
+
+/* Estilo para inputs numéricos pequenos */
+.form-group input[type="number"] {
+    max-width: 100px; /* Define uma largura máxima padrão */
+}
+/* Estilo específico para o campo de progresso inicial */
+#progresso_inicial {
+    width: 80px !important; /* Força a largura desejada */
+    padding: 10px !important; /* Ajusta o padding */
+}
+
+
+.form-group textarea {
+    min-height: 80px; /* Altura mínima para textareas */
+    resize: vertical; /* Permite redimensionar apenas verticalmente */
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.25);
+}
+
+.form-group small { /* Texto de ajuda/dica */
+    display: block;
+    margin-top: 5px;
+    font-size: 0.85em;
+    color: var(--text-secondary);
+}
+
+/* Estilo unificado para selects */
+.form-group select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+    font-family: inherit;
+    height: 45px; /* Altura consistente */
+    background-color: #fff;
+    box-sizing: border-box;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%236c757d%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E');
+    background-repeat: no-repeat;
+    background-position: right 12px top 50%;
+    background-size: .65em auto;
+    cursor: pointer; /* Indica que é clicável */
+}
+
+/* Layout em Linhas para Formulários (Opcional, mas útil) */
+.form-row {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+.form-group-half { flex: 1; min-width: 0; } /* min-width: 0 previne overflow */
+.form-group-third { flex: 1; min-width: 0; }
+
+@media (max-width: 768px) {
+    .form-row {
+        flex-direction: column;
+        gap: 0; /* Remove gap vertical */
+        margin-bottom: 0; /* Remove margem extra */
+    }
+    /* Adiciona margem inferior a cada grupo dentro da row no mobile */
+     .form-row > .form-group,
+     .form-row > .form-group-half,
+     .form-row > .form-group-third {
+         margin-bottom: 20px;
+     }
+     /* Remove a margem do último elemento para evitar espaço extra */
+     .form-row > div:last-child {
+         margin-bottom: 0;
+     }
 }
 
 /* Tabelas */
@@ -126,26 +230,72 @@ body {
     width: 100%;
     border-collapse: collapse;
     font-size: 0.9em;
+    margin-top: 15px; /* Adiciona espaço acima da tabela */
+    overflow-x: auto; /* Permite rolagem horizontal em telas pequenas */
+    display: block; /* Necessário para overflow-x funcionar */
 }
-.content-table thead tr {
+.content-table thead {
     background-color: #f8f9fa;
+}
+.content-table th {
     text-align: left;
     font-weight: 600;
-}
-.content-table th, .content-table td {
     padding: 12px 15px;
     border: 1px solid var(--border-color);
+    white-space: nowrap; /* Evita quebra de linha nos cabeçalhos */
+}
+.content-table td {
+    padding: 12px 15px;
+    border: 1px solid var(--border-color);
+    vertical-align: middle; /* Alinha conteúdo verticalmente */
 }
 .content-table tbody tr:nth-child(even) { background-color: #f8f9fa; }
-.actions-cell { display: flex; gap: 8px; }
+.content-table tbody tr:hover { background-color: #f1f1f1; } /* Efeito hover */
+
+.actions-cell {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap; /* Permite que botões quebrem linha se necessário */
+}
 .actions-cell .btn { padding: 6px 10px; font-size: 0.8em; }
 
 /* Mensagens de Feedback */
 .feedback-message {
-    padding: 15px;
+    padding: 15px 20px;
     margin-bottom: 20px;
     border-radius: 5px;
     border: 1px solid transparent;
+    font-weight: 500;
 }
-.feedback-success { background-color: #d4edda; color: #155724; border-color: #c3e6cb; }
-.feedback-error { background-color: #f8d7da; color: #721c24; border-color: #f5c6cb; }
+.feedback-success { background-color: #d1e7dd; color: #0f5132; border-color: #badbcc; }
+.feedback-error { background-color: #f8d7da; color: #842029; border-color: #f5c2c7; }
+
+/* Responsividade Geral do Admin */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: static; /* Volta ao fluxo normal */
+        padding: 15px 0;
+    }
+    .main-content {
+        margin-left: 0;
+        width: 100%;
+        padding: 20px;
+    }
+    .sidebar-header { display: none; } /* Esconde o header da sidebar no mobile */
+    .sidebar-nav { display: flex; flex-wrap: wrap; justify-content: center; } /* Menu vira horizontal */
+    .nav-item a { padding: 10px 15px; }
+    .nav-footer { display: none; } /* Esconde o 'Sair' nesse layout, pode repensar */
+
+    .page-header h1 { font-size: 1.5em; }
+    .btn { padding: 8px 15px; font-size: 0.85em; }
+}
+
+@media (max-width: 480px) {
+     .actions-cell {
+         flex-direction: column; /* Botões um embaixo do outro */
+         align-items: flex-start; /* Alinha à esquerda */
+     }
+     .actions-cell .btn { width: 100%; text-align: center;} /* Botões ocupam largura total */
+}

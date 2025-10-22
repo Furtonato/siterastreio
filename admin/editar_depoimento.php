@@ -1,45 +1,65 @@
 <?php
+// 1. LOGIC MOVED TO TOP
 require_once 'db.php';
-include 'admin_header.php';
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Verifica se está logado
+if (!isset($_SESSION['admin_logged_in']) || !$_SESSION['admin_logged_in']) {
+    header('Location: index.php');
+    exit();
+}
 
 // Verifica se o ID do depoimento foi passado na URL
-if (!isset($_GET['id'])) {
+if (!isset($_GET['id']) || !filter_var($_GET['id'], FILTER_VALIDATE_INT)) { // Valida se é um inteiro
     header("Location: gerenciar_depoimentos.php");
     exit();
 }
-$id_depoimento = $_GET['id'];
+$id_depoimento = (int)$_GET['id'];
 
 // --- LÓGICA PARA ATUALIZAR OS DADOS ---
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $nome_cliente = $_POST['nome_cliente'];
-    $texto_depoimento = $_POST['texto_depoimento'];
-    $foto_url = $_POST['foto_url'];
+    $texto = $_POST['texto']; // <-- CORRIGIDO AQUI (nome do campo do formulário)
+    $foto_url = $_POST['foto_url']; // Assume que estamos editando apenas a URL por enquanto
 
     // Prepara a query de atualização
-    $sql = "UPDATE depoimentos SET nome_cliente = ?, texto_depoimento = ?, foto_url = ? WHERE id = ?";
+    // <-- CORRIGIDO AQUI (nome da coluna texto)
+    $sql = "UPDATE depoimentos SET nome_cliente = ?, texto = ?, foto_url = ? WHERE id = ?";
     $stmt = $conexao->prepare($sql);
-    $stmt->bind_param("sssi", $nome_cliente, $texto_depoimento, $foto_url, $id_depoimento);
-    
+    // <-- CORRIGIDO AQUI (variável $texto)
+    $stmt->bind_param("sssi", $nome_cliente, $texto, $foto_url, $id_depoimento);
+
     if ($stmt->execute()) {
         $_SESSION['success_message'] = "Depoimento atualizado com sucesso!";
     } else {
-        $_SESSION['error_message'] = "Erro ao atualizar depoimento.";
+        $_SESSION['error_message'] = "Erro ao atualizar depoimento: " . $stmt->error;
+        error_log("Erro SQL ao atualizar depoimento ID {$id_depoimento}: " . $stmt->error); // Log de erro
     }
-    
+    $stmt->close(); // Fecha o statement
+
     // Redireciona de volta para a lista principal
     header("Location: gerenciar_depoimentos.php");
     exit();
 }
 
+// 2. NOW INCLUDE HEADER
+include 'admin_header.php';
+
 // --- BUSCA OS DADOS ATUAIS DO DEPOIMENTO PARA PREENCHER O FORMULÁRIO ---
-$stmt_busca = $conexao->prepare("SELECT * FROM depoimentos WHERE id = ?");
+// <-- CORRIGIDO AQUI (seleciona a coluna 'texto')
+$stmt_busca = $conexao->prepare("SELECT id, nome_cliente, texto, foto_url FROM depoimentos WHERE id = ?");
 $stmt_busca->bind_param("i", $id_depoimento);
 $stmt_busca->execute();
-$depoimento = $stmt_busca->get_result()->fetch_assoc();
+$result_busca = $stmt_busca->get_result();
+$depoimento = $result_busca->fetch_assoc();
+$stmt_busca->close(); // Fecha o statement
 
-// Se não encontrar nenhum depoimento com o ID, redireciona
+// Se não encontrar nenhum depoimento com o ID, exibe mensagem e sai (mas já dentro do HTML)
 if (!$depoimento) {
-    header("Location: gerenciar_depoimentos.php");
+    echo '<div class="feedback-message feedback-error">Depoimento não encontrado.</div>';
+    include 'admin_footer.php';
     exit();
 }
 ?>
@@ -60,13 +80,16 @@ if (!$depoimento) {
             <input type="text" id="nome_cliente" name="nome_cliente" value="<?php echo htmlspecialchars($depoimento['nome_cliente']); ?>" required>
         </div>
         <div class="form-group">
-            <label for="texto_depoimento">Texto do Depoimento</label>
-            <textarea id="texto_depoimento" name="texto_depoimento" rows="6" required><?php echo htmlspecialchars($depoimento['texto_depoimento']); ?></textarea>
+             
+            <label for="texto">Texto do Depoimento</label>
+             
+            <textarea id="texto" name="texto" rows="6" required><?php echo htmlspecialchars($depoimento['texto']); ?></textarea>
         </div>
         <div class="form-group">
             <label for="foto_url">URL da Foto (Opcional)</label>
-            <input type="text" id="foto_url" name="foto_url" value="<?php echo htmlspecialchars($depoimento['foto_url']); ?>" placeholder="Ex: imagens/cliente1.jpg">
-            <small>Lembre-se de usar o caminho relativo da imagem (ex: imagens/foto.jpg).</small>
+            <input type="text" id="foto_url" name="foto_url" value="<?php echo htmlspecialchars($depoimento['foto_url']); ?>" placeholder="Ex: uploads/nome_arquivo.jpg">
+            <small>Lembre-se de usar o caminho relativo à raiz do site (ex: uploads/foto.jpg).</small>
+             
         </div>
         <button type="submit" class="btn btn-success">Salvar Alterações</button>
     </form>

@@ -7,10 +7,12 @@ header("Content-type: text/css; charset: UTF-8");
 require_once '../admin/db.php';
 
 // Busca todas as configurações do banco de dados
-$resultado = $conexao->query("SELECT nome_config, valor_config FROM configuracoes");
+// Correção: Usando 'chave' e 'valor'
+$resultado = $conexao->query("SELECT chave, valor FROM configuracoes");
 $config = [];
 while ($row = $resultado->fetch_assoc()) {
-    $config[$row['nome_config']] = $row['valor_config'];
+    // Correção: Usando 'chave' e 'valor'
+    $config[$row['chave']] = $row['valor'];
 }
 ?>
 
@@ -20,12 +22,12 @@ while ($row = $resultado->fetch_assoc()) {
 
 /* Cor do Cabeçalho (Header) */
 .header {
-    background: linear-gradient(to right, <?php echo $config['cor_header_inicio']; ?>, <?php echo $config['cor_header_fim']; ?>);
+    background: linear-gradient(to right, <?php echo $config['cor_header_inicio'] ?? '#004080'; ?>, <?php echo $config['cor_header_fim'] ?? '#001f3f'; ?>);
 }
 
 /* Cor do Botão de Destaque "Rastrear" */
 .header-nav .btn-rastrear {
-    background-color: <?php echo $config['cor_botao_destaque']; ?>;
+    background-color: <?php echo $config['cor_botao_destaque'] ?? '#f39c12'; ?>;
 }
 
 .header-nav .btn-rastrear:hover {
@@ -35,19 +37,19 @@ while ($row = $resultado->fetch_assoc()) {
 
 /* Cor de Fundo Geral (se você quiser usar) */
 body {
-    background-color: <?php echo $config['cor_fundo']; ?>;
+    background-color: <?php echo $config['cor_fundo'] ?? '#f8f9fa'; ?>;
 }
 
 /* Cores das Fontes */
 h1, h2, h3, h4, .site-title, .author-name {
-    color: <?php echo $config['cor_fonte_titulos']; ?>;
+    color: <?php echo $config['cor_fonte_titulos'] ?? '#003D7A'; ?>;
 }
 
 /* Cor da fonte do menu (precisa ser mais específico para sobrescrever) */
 .header-nav a {
-    color: <?php echo $config['cor_fonte_menu']; ?>;
+    color: <?php echo $config['cor_fonte_menu'] ?? '#ffffff'; ?>;
 }
 
 body, p, .site-slogan, .author-role, .testimonial-text {
-    color: <?php echo $config['cor_fonte_textos']; ?>;
+    color: <?php echo $config['cor_fonte_textos'] ?? '#343a40'; ?>;
 }

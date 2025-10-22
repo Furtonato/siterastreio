@@ -1,4 +1,13 @@
-<?php include 'admin_header.php'; ?>
+<?php
+ini_set('display_errors', 1); // Força a exibição de erros (temporário)
+error_reporting(E_ALL); // Mostra todos os tipos de erro (temporário)
+
+// Corrigido o caminho para db.php
+require_once('db.php'); 
+
+// Inclui o header DEPOIS de conectar ao DB e iniciar sessão (se necessário no header)
+include 'admin_header.php'; 
+?>
 
 <head>
     <title>Painel de Controle</title>

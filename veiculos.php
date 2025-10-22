@@ -6,8 +6,8 @@ require_once 'admin/db.php';
 $veiculos = $conexao->query("SELECT * FROM vitrine_veiculos WHERE status = 'disponivel' ORDER BY id DESC");
 
 // Busca o logo principal nas configurações
-$resultado_logo = $conexao->query("SELECT valor_config FROM configuracoes WHERE nome_config = 'url_logo_principal'");
-$url_logo_principal = $resultado_logo->fetch_assoc()['valor_config'] ?? 'imagens/logo.png';
+$resultado_logo = $conexao->query("SELECT valor FROM configuracoes WHERE chave = 'url_logo_principal'");
+$url_logo_principal = $resultado_logo->fetch_assoc()['valor'] ?? 'imagens/logo.png';
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">

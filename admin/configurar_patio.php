@@ -1,8 +1,11 @@
 <?php
+// 1. START SESSION (if not already) AND REQUIRE DB
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 require_once 'db.php';
-include 'admin_header.php';
 
-// Lógica para salvar o endereço
+// 2. MOVED ALL FORM LOGIC TO THE TOP
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $endereco_origem = $_POST['endereco_origem'];
     $sql = "INSERT INTO configuracoes (chave, valor) VALUES ('endereco_origem', ?) ON DUPLICATE KEY UPDATE valor = VALUES(valor)";
@@ -13,11 +16,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } else {
         $_SESSION['error_message'] = "Erro ao salvar o endereço.";
     }
+    // This redirect will now work
     header("Location: configurar_patio.php");
     exit();
 }
 
-// Lógica para buscar o endereço atual
+// 3. NOW INCLUDE THE HTML HEADER
+include 'admin_header.php';
+
+// 4. Logic for fetching data (can stay here)
 $sql_busca = "SELECT valor FROM configuracoes WHERE chave = 'endereco_origem' LIMIT 1";
 $resultado = $conexao->query($sql_busca);
 $config = $resultado->fetch_assoc();

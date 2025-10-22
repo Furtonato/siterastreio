@@ -1,6 +1,9 @@
 <?php
+// 1. LOGIC MOVED TO TOP
 require_once 'db.php';
-include 'admin_header.php';
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 if (!isset($_GET['id'])) {
     header("Location: gerenciar_clientes.php");
@@ -9,6 +12,7 @@ if (!isset($_GET['id'])) {
 $id_cliente = $_GET['id'];
 $id_admin_logado = $_SESSION['admin_id'];
 
+// Check permission before including header
 $sql_check = "SELECT id FROM usuarios WHERE id = ? AND id_admin = ?";
 $stmt_check = $conexao->prepare($sql_check);
 $stmt_check->bind_param("ii", $id_cliente, $id_admin_logado);
@@ -55,6 +59,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     exit();
 }
 
+// 2. NOW INCLUDE HEADER
+include 'admin_header.php';
+
+// 3. Data fetching logic
 $sql_busca = "SELECT nome, cpf, endereco, telefone FROM usuarios WHERE id = ?";
 $stmt = $conexao->prepare($sql_busca);
 $stmt->bind_param("i", $id_cliente);

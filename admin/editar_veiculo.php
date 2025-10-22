@@ -1,6 +1,15 @@
 <?php
+// 1. LOGIC MOVED TO TOP
 require_once 'db.php';
-include 'admin_header.php';
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Verifica se está logado
+if (!isset($_SESSION['admin_logged_in']) || !$_SESSION['admin_logged_in']) {
+    header('Location: index.php');
+    exit();
+}
 
 if (!isset($_GET['id_veiculo'])) {
     header("Location: gerenciar_clientes.php");
@@ -18,23 +27,33 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $sql = "UPDATE veiculos SET modelo = ?, placa = ?, icone_url = ? WHERE id = ?";
     $stmt = $conexao->prepare($sql);
     $stmt->bind_param("sssi", $modelo, $placa, $icone_url, $id_veiculo);
-    
+
     if ($stmt->execute()) {
         $_SESSION['success_message'] = "Veículo atualizado com sucesso!";
     } else {
         $_SESSION['error_message'] = "Erro ao atualizar veículo.";
     }
-    
+
     // Redireciona de volta para a página de detalhes do cliente
     header("Location: gerenciar_rastreamento.php?id=" . $id_usuario);
     exit();
 }
+
+// 2. NOW INCLUDE HEADER
+include 'admin_header.php';
 
 // --- BUSCA DE DADOS PARA PREENCHER O FORMULÁRIO ---
 $stmt_busca = $conexao->prepare("SELECT * FROM veiculos WHERE id = ?");
 $stmt_busca->bind_param("i", $id_veiculo);
 $stmt_busca->execute();
 $veiculo = $stmt_busca->get_result()->fetch_assoc();
+
+// Verifica se o veículo foi encontrado
+if (!$veiculo) {
+     echo '<div class="feedback-message feedback-error">Veículo não encontrado.</div>';
+     include 'admin_footer.php';
+     exit();
+}
 ?>
 
 <head>
@@ -46,8 +65,21 @@ $veiculo = $stmt_busca->get_result()->fetch_assoc();
     <a href="gerenciar_rastreamento.php?id=<?php echo $veiculo['id_usuario']; ?>" class="btn btn-primary">Cancelar</a>
 </div>
 
+<?php
+// Exibe mensagens de sucesso ou erro (se houver vindo de outra página)
+if (isset($_SESSION['success_message'])) {
+    echo '<div class="feedback-message feedback-success">' . htmlspecialchars($_SESSION['success_message']) . '</div>';
+    unset($_SESSION['success_message']);
+}
+if (isset($_SESSION['error_message'])) {
+    echo '<div class="feedback-message feedback-error">' . htmlspecialchars($_SESSION['error_message']) . '</div>';
+    unset($_SESSION['error_message']);
+}
+?>
+
+
 <div class="card">
-    <form method="POST">
+    <form method="POST" action="editar_veiculo.php?id_veiculo=<?php echo $id_veiculo; ?>"> {/* Adicionado action */}
         <input type="hidden" name="id_usuario" value="<?php echo $veiculo['id_usuario']; ?>">
         <div class="form-group">
             <label for="modelo">Modelo do Veículo</label>
@@ -59,20 +91,20 @@ $veiculo = $stmt_busca->get_result()->fetch_assoc();
         </div>
         <div class="form-group">
             <label for="icone_url">Logo da Marca</label>
-            <select id="icone_url" name="icone_url" class="form-group" style="width:100%; padding:12px; border: 1px solid #ccc; border-radius: 5px; font-size: 1em;">
+            <select id="icone_url" name="icone_url"> {/* REMOVIDO style e class daqui */}
                 <?php $logos = [
                     "imagens/logos/chevrolet.png" => "Chevrolet", "imagens/logos/citroen.png" => "Citroën",
                     "imagens/logos/hyundai.png" => "Hyundai", "imagens/logos/mercedes.png" => "Mercedes-Benz",
                     "imagens/logos/mitsubishi.png" => "Mitsubishi", "imagens/logos/renault.png" => "Renault",
-                    "imagens/logos/toyota.png" => "Toyota", 
+                    "imagens/logos/toyota.png" => "Toyota",
                     "imagens/logos/ford.png" => "Ford",
-                    // --- LINHAS ADICIONADAS ---
                     "imagens/logos/honda.png" => "Honda",
                     "imagens/logos/vw.png" => "Volkswagen"
+                    // Adicione mais marcas se necessário
                 ]; ?>
                 <option value="">Selecione um logo</option>
                 <?php foreach ($logos as $path => $marca): ?>
-                    <option value="<?php echo $path; ?>" <?php echo ($veiculo['icone_url'] == $path) ? 'selected' : ''; ?>>
+                    <option value="<?php echo $path; ?>" <?php echo (isset($veiculo['icone_url']) && $veiculo['icone_url'] == $path) ? 'selected' : ''; ?>>
                         <?php echo $marca; ?>
                     </option>
                 <?php endforeach; ?>

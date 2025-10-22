@@ -1,6 +1,9 @@
 <?php
+// 1. LOGIC MOVED TO TOP
 require_once 'db.php';
-include 'admin_header.php';
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 // --- LÓGICA PARA ADICIONAR OU EXCLUIR VEÍCULOS ---
 
@@ -52,6 +55,9 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete' && isset($_GET['id']))
     header("Location: gerenciar_vitrine.php");
     exit();
 }
+
+// 2. NOW INCLUDE HEADER
+include 'admin_header.php';
 
 // Busca todos os veículos para listar na tabela
 $veiculos = $conexao->query("SELECT id, foto_principal, titulo, preco, ano_fabricacao, ano_modelo, status FROM vitrine_veiculos ORDER BY id DESC");

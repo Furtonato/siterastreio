@@ -1,7 +1,12 @@
 <?php
+// 1. START SESSION (if not already) AND REQUIRE DB
+// This logic must come before any 'header()' calls.
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 require_once 'db.php';
-include 'admin_header.php';
 
+// 2. MOVED ALL FORM LOGIC TO THE TOP
 $id_admin_logado = $_SESSION['admin_id'];
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_cliente'])) {
@@ -21,10 +26,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_cliente'])) {
     } else {
         $_SESSION['error_message'] = "Erro ao adicionar cliente.";
     }
+    // This redirect will now work because no HTML has been sent yet
     header("Location: gerenciar_clientes.php");
     exit();
 }
 
+// 3. NOW INCLUDE THE HTML HEADER
+include 'admin_header.php';
+
+// 4. Logic for fetching data (can stay here)
 $sql_busca = "SELECT id, nome, cpf, endereco FROM usuarios WHERE id_admin = ?";
 $stmt_busca = $conexao->prepare($sql_busca);
 $stmt_busca->bind_param("i", $id_admin_logado);

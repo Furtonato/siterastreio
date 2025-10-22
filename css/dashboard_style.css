@@ -246,3 +246,24 @@ body { background-image: none !important; background-color: #f4f7f9 !important; 
     .info-grid { flex-direction: column; }
     .info-photo { margin-top: 20px; width: 100%; }
 }
+/* Cor padrão da barra de progresso (azul) */
+.progress-bar,
+.mobile-progress-bar {
+    background-color: var(--progress-color, #3b82f6); /* Usa a variável ou um azul padrão */
+    /* Mantém as outras propriedades como height, border-radius, transition, animation, etc. */
+}
+
+/* Cor da barra de progresso quando concluída (verde) */
+.progress-bar.completed,
+.mobile-progress-bar.completed {
+    background-color: var(--status-green-color, #4CAF50); /* Usa a variável verde ou um verde padrão */
+    background-image: none; /* Remove as listras animadas */
+    animation: none; /* Remove a animação de pulso se houver */
+}
+
+/* Garante que a classe no-animation também remova a imagem de fundo */
+.progress-bar.no-animation,
+.mobile-progress-bar.no-animation {
+     background-image: none;
+     animation: none;
+}

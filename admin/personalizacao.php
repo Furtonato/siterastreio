@@ -1,18 +1,23 @@
 <?php
+// 1. LOGIC MOVED TO TOP
 require_once 'db.php';
-include 'admin_header.php';
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 // --- LÓGICA PARA SALVAR AS ALTERAÇÕES ---
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['salvar_tudo'])) {
     // Loop através de cada configuração enviada pelo formulário
-    foreach ($_POST as $nome_config => $valor_config) {
+    foreach ($_POST as $chave => $valor) {
         // Ignora o botão 'salvar_tudo' para não tentar salvar no banco
-        if ($nome_config === 'salvar_tudo') continue;
+        if ($chave === 'salvar_tudo') continue;
 
-        // Prepara a query para atualizar cada configuração no banco de dados
-        $sql = "UPDATE configuracoes SET valor_config = ? WHERE nome_config = ?";
+        // Prepara a query para atualizar/inserir cada configuração no banco
+        // Usando a estrutura (chave, valor)
+        $sql = "INSERT INTO configuracoes (chave, valor) VALUES (?, ?) 
+                ON DUPLICATE KEY UPDATE valor = VALUES(valor)";
         $stmt = $conexao->prepare($sql);
-        $stmt->bind_param("ss", $valor_config, $nome_config);
+        $stmt->bind_param("ss", $chave, $valor);
         $stmt->execute();
     }
     $_SESSION['success_message'] = "Configurações salvas com sucesso!";
@@ -21,11 +26,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['salvar_tudo'])) {
     exit();
 }
 
+// 2. NOW INCLUDE HEADER
+include 'admin_header.php';
+
 // --- BUSCA AS CONFIGURAÇÕES ATUAIS PARA PREENCHER O FORMULÁRIO ---
-$resultado = $conexao->query("SELECT nome_config, valor_config FROM configuracoes");
+// Usando a estrutura (chave, valor)
+$resultado = $conexao->query("SELECT chave, valor FROM configuracoes");
 $config = [];
 while ($row = $resultado->fetch_assoc()) {
-    $config[$row['nome_config']] = $row['valor_config'];
+    $config[$row['chave']] = $row['valor'];
 }
 ?>
 

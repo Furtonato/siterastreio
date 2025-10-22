@@ -5,9 +5,8 @@ require_once 'admin/db.php';
 // Busca todos os depoimentos cadastrados no banco
 $depoimentos = $conexao->query("SELECT * FROM depoimentos ORDER BY id DESC");
 
-// Busca o logo principal nas configurações
-$resultado_logo = $conexao->query("SELECT valor_config FROM configuracoes WHERE nome_config = 'url_logo_principal'");
-$url_logo_principal = $resultado_logo->fetch_assoc()['valor_config'] ?? 'imagens/logo.png';
+$resultado_logo = $conexao->query("SELECT valor FROM configuracoes WHERE chave = 'url_logo_principal'");
+$url_logo_principal = $resultado_logo->fetch_assoc()['valor'] ?? 'imagens/logo.png';
 ?>
 
 <!DOCTYPE html>
@@ -170,30 +169,30 @@ $url_logo_principal = $resultado_logo->fetch_assoc()['valor_config'] ?? 'imagens
         }
 
         /* --- MENU MOBILE --- */
-.mobile-nav {
-    position: fixed;
-    top: 0;
-    left: -300px;
-    width: 300px;
-    height: 100vh;
-    background-color: rgba(0, 64, 128, 0.98);
-    z-index: 1000;
-    padding-top: 80px;
-    transition: left 0.3s ease;
-    visibility: hidden;
-    opacity: 0;
-}
-
-.mobile-nav.active {
-    left: 0;
-    visibility: visible;
-    opacity: 1;
-}
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            left: -300px;
+            width: 300px;
+            height: 100vh;
+            background-color: rgba(0, 64, 128, 0.98);
+            z-index: 1000;
+            padding-top: 80px;
+            transition: left 0.3s ease;
+            visibility: hidden;
+            opacity: 0;
+        }
 
         .mobile-nav.active {
-    display: block;
-    left: 0;
-}
+            left: 0;
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .mobile-nav.active {
+            display: block;
+            left: 0;
+        }
 
 
         .mobile-nav.active {
@@ -1298,7 +1297,6 @@ $url_logo_principal = $resultado_logo->fetch_assoc()['valor_config'] ?? 'imagens
                 </div>
             </div>
             
-            <!-- Menu Desktop -->
             <nav class="header-nav">
                 <ul>
                     <li><a href="index.php">Início</a></li>
@@ -1309,7 +1307,6 @@ $url_logo_principal = $resultado_logo->fetch_assoc()['valor_config'] ?? 'imagens
                 </ul>
             </nav>
             
-            <!-- Menu Hambúrguer -->
             <div class="hamburger-menu" onclick="toggleMobileMenu()">
                 <span></span>
                 <span></span>
@@ -1317,7 +1314,6 @@ $url_logo_principal = $resultado_logo->fetch_assoc()['valor_config'] ?? 'imagens
             </div>
         </div>
         
-        <!-- Menu Mobile -->
         <nav class="mobile-nav" id="mobileNav">
             <ul>
                 <li><a href="index.php" onclick="closeMobileMenu()">Início</a></li>
@@ -1386,7 +1382,7 @@ $url_logo_principal = $resultado_logo->fetch_assoc()['valor_config'] ?? 'imagens
                     </div>
                 </div>
                 <div class="testimonial-content">
-                    <p class="testimonial-text"><?php echo htmlspecialchars($dep['texto_depoimento']); ?></p>
+                    <p class="testimonial-text"><?php echo htmlspecialchars($dep['texto']); ?></p>
                     <div class="testimonial-author">
                         <div class="author-name"><?php echo htmlspecialchars($dep['nome_cliente']); ?></div>
                         <div class="author-role">Cliente Verificado</div>
@@ -1398,7 +1394,7 @@ $url_logo_principal = $resultado_logo->fetch_assoc()['valor_config'] ?? 'imagens
         <p style="text-align: center; grid-column: 1 / -1;">Nenhum depoimento encontrado no momento.</p>
     <?php endif; ?>
 
-        </div> 
+            </div> 
         </div> 
     </main>
 
