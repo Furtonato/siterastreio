@@ -1,0 +1,965 @@
+#contentParente * {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box
+}
+
+#contentParente {
+    font-family: Arial, sans-serif;
+    background-color: #e2e2e2;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    margin: 0;
+    padding: 0;
+    background-size: contain;
+    display:block !important;
+    z-index: 9999999999999;
+}
+
+#contentParente div {
+    word-wrap: break-word;
+}
+
+#containerConteudo {
+    height: calc(100vh);
+    width: 100%
+}
+/* b {
+    width: 100%;
+    float: left;
+} */
+.headerBCss {
+    width: 100%;
+    padding: 10px 0 5px 0;
+    margin: 0 0 5px 0;
+    float: left;
+    text-align: center;
+    font-weight: 700;
+    display: none;
+}
+
+.closeChat {
+    padding: 12px 12px;
+    float: right;
+    position: relative;
+    right: 10px;
+    cursor: pointer;
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    -ms-border-radius: 100%;
+    border-radius: 100%;
+    color: #aaa;
+    background: url(https://homol.juh.assistentevirtual.sp.gov.br/img/icon_close.png) no-repeat
+}
+
+.closeChat:hover {
+    opacity: .8
+}
+
+.thumbBt {
+    z-index: 2;
+    position: absolute;
+    right: 20px;
+    bottom: 0;
+    margin: 0;
+    cursor: pointer;
+    background: url(https://homol.juh.assistentevirtual.sp.gov.br/img/bg-chat.png);
+}
+
+.thumbBt img {
+    float: right;
+    position: relative;
+    bottom: 17px
+}
+
+.iconChat {
+    background: url(https://homol.juh.assistentevirtual.sp.gov.br/img/icon_chat.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 70px;
+    height: 70px;
+    float: right;
+    margin: 0 0 15px 0; 
+}
+
+.bgAjuda {
+    background: #fff;
+    position: absolute;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    border-radius: 20px;
+    width: auto;
+    height: auto;
+    line-height: 40px;
+    right: 85px;
+    margin: 15px 0 0 0;
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    transform:scaleX(0);
+    transform-origin: 100% 50%;
+    /* box-shadow: 1px 0 11px 1px rgba(187, 56, 48, 0.349); */
+}
+
+#contentParente {
+    border: none;
+    font-size: 14px !important;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 0;
+    height: calc(100% - 1rem);
+}
+
+.responsive-columns-wrappers {
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    flex-direction: row;
+    -ms-display: flex;
+    -ms-flex-direction: row
+}
+
+.responsive-column {
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    overflow: auto
+}
+
+#chat-column-holder {
+    text-align: center
+}
+
+.chats-column {
+    height: 0;
+    padding: 0;
+    margin: auto;
+    position: absolute;
+    right: 20px;
+    bottom: 120px;
+    max-width: 24.975rem;
+    min-width: 24.975rem;
+    border-style: none;
+    border-color: none;
+    background-color: #fff;
+    box-shadow: 1px 0 6px 1px transparent;
+    -webkit-transition: all 0.4s ease-in-out;
+    -moz-transition: all 0.4s ease-in-out;
+    -o-transition: all 0.4s ease-in-out;
+    transition: all 0.4s ease-in-out;
+}
+
+.bC-On {
+    height: 80%;
+    bottom: 100px!important;
+    box-shadow: 1px 0 6px 1px #dadada;
+    -webkit-transition: all 0.4s ease-in-out;
+    -moz-transition:all 0.4s ease-in-out;
+    -o-transition: all 0.4s ease-in-out;
+    transition: all 0.4s ease-in-out;
+}
+
+.box-On {
+   display: block !important;
+}
+
+.horario input {
+    width: 31%
+}
+
+#scrollingChatsd {
+    margin: .75rem;
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: calc(100% - 6.8rem);
+    background: rgba(247, 247, 247, .54);
+    border: 1px solid #dcdcdc;
+    padding: 5px 0;
+    display: none;
+}
+
+.boxChoices {
+    height: calc(100% - 9.3rem)!important;
+}
+
+.closeChoices {
+    display: none;
+}
+
+.message-inner {
+    opacity: 0;
+    margin-top: .9375rem;
+    -webkit-transition-property: opacity, margin-top;
+    -webkit-transition-duration: 0.75s;
+    -webkit-transition-timing-function: ease-in;
+    -moz-transition-property: opacity, margin-top;
+    -moz-transition-duration: 0.75s;
+    -moz-transition-timing-function: ease-in;
+    -o-transition-property: opacity, margin-top;
+    -o-transition-duration: 0.75s;
+    -o-transition-timing-function: ease-in;
+    -ms-transition-property: opacity, margin-top;
+    -ms-transition-duration: 0.75s;
+    -ms-transition-timing-function: ease-in;
+    transition-property: opacity, margin-top;
+    transition-duration: 0.75s;
+    transition-timing-function: ease-in
+}
+
+.message-inner p input[type="submit"] {
+    text-align: center
+}
+
+.message-inner p label {
+    margin: 6px 0 0 0;
+    font-weight: 400
+}
+
+.loadChatsd .message-inner {
+    opacity: 1;
+    margin-top: .3125rem
+}
+
+.from-user {
+    padding: 0 .31rem 20px 0;
+    text-align: right;
+    width: 85%;
+    float: right;
+}
+
+.from-user .message-inner {
+    position: relative;
+    font-size: 1em;
+    max-width: 87%;
+    color: black;
+    letter-spacing: .015rem;
+    line-height: 1.3125rem;
+    background: rgba(234, 234, 234, 0.67);
+    -webkit-border-radius: 10px 0 10px 10px;
+    -moz-border-radius: 10px 0 10px 10px;
+    -ms-border-radius: 10px 0 10px 10px;
+    border-radius: 10px 0 10px 10px;
+    text-align: right;
+    display: inline-block;
+    min-width: 2.5rem;
+    margin: 19px 0 18px 0;
+    box-shadow: 0 0 16px 1px #fff
+}
+
+.from-user .message-inner p {
+    margin: .3125rem;
+    padding: 0 .935rem;
+    left: 30px
+}
+
+.from-user .message-inner:before,
+.from-user .message-inner:after {
+    content: "";
+    position: absolute
+}
+
+.from-watson .message-inner {
+    position: relative;
+    font-size: .97em;
+    letter-spacing: .015rem;
+    line-height: 1.3125rem;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    border-radius: 5px;
+    margin-right: 0;
+    border: none;
+    width: 84%;
+    margin: 0 0 0 15%;
+    box-shadow: 0 1px 7px #e6e6e6
+}
+
+.from-watson.latest .message-inner {
+    color: #323232
+}
+
+.from-watson p {
+    margin: 1px 1px 1px 1px;
+    padding: 4px 5px 7px 5px;
+    background: #fff;
+    -webkit-border-radius: 0 10px 10px 10px;
+    -moz-border-radius: 0 10px 10px 10px;
+    -ms-border-radius: 0 10px 10px 10px;
+    border-radius: 0 10px 10px 10px;
+    font-size: 1em;
+    letter-spacing: 0;
+    line-height: 1.65em;
+    text-align: left;
+    float: left;
+    box-shadow: 1px -1px 17px rgba(204, 204, 204, 0.32);
+}
+
+.from-watson.top p:before {
+    content: "";
+    background-image: url(https://homol.juh.assistentevirtual.sp.gov.br/img/mini_ico.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    position: absolute;
+    z-index: 2;
+    left: -17%;
+    margin: -6px 0 0 0;
+    width: 45px;
+    height: 45px;
+    line-height: 1.3125rem;
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    -ms-border-radius: 100%;
+    border-radius: 100%
+}
+
+#textInput {
+    width: 100%;
+    min-width: 100%;
+    max-width: 100%;
+    height: 37px;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    -ms-border-radius: 0;
+    border-radius: 0;
+    resize: none;
+    outline: none;
+    padding: 3px 35px 3px 3px;
+    margin: 0 0;
+    font-size: 15px;
+    border: 1px dashed #dcdcdc;    
+    font-family: Arial, sans-serif;
+    font-weight: 400
+}
+
+.loadInput {
+    background: #f3f3f3 url(https://homol.juh.assistentevirtual.sp.gov.br/img/loading.gif) no-repeat;
+    background-size: auto 31%;
+    background-position: center
+}
+
+#textInput.underline {
+    border-bottom: .125rem solid #d6dbdf
+}
+
+.btnSendConversation {
+    border: none;
+    position: absolute;
+    bottom: 17px;
+    right: 18px;
+    width: 25px;
+    height: 30px;
+    background:url(https://homol.juh.assistentevirtual.sp.gov.br/img/send.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    font-size: 0;
+    color: transparent;
+    text-indent: -200px;
+    outline: none;
+    cursor: pointer;
+}
+
+::-webkit-input-placeholder {
+    color: #B5B5B5
+}
+
+::-moz-placeholder {
+    color: #B5B5B5;
+    opacity: 1
+}
+
+input:-moz-placeholder {
+    color: #B5B5B5;
+    opacity: 1
+}
+
+:-ms-input-placeholder {
+    color: #B5B5B5
+}
+
+::-ms-clear {
+    display: none
+}
+
+.inputOutline {
+    display: block;
+    border: 1px solid beige;
+    padding: 1px;
+    background-color: #FFF;
+    width: 94%;
+    margin: 0 3%;
+    display: none;
+}
+
+#textInputDummy {
+    position: absolute;
+    white-space: pre;
+    top: 0;
+    left: -1000%;
+    opacity: 0
+}
+
+.hide {
+    display: none
+}
+
+pre {
+    margin: 0;
+    word-wrap: normal
+}
+
+.string {
+    color: #54EED0
+}
+
+.boolean,
+.null,
+.number {
+    color: #CE8EFF
+}
+
+.key {
+    color: #66B7FF
+}
+
+.segmentsd.loadChatsd {
+    width: 100%;    
+    float: left;    
+}
+
+.box-btn {
+    float: left;
+    margin: 8px 0 0 0
+}
+
+.btn-primary {
+    color: #005ca3;
+    background: #fff url(https://homol.juh.assistentevirtual.sp.gov.br/img/bg_listras.png) repeat-x;
+    border: 1px solid rgba(162, 70, 70, 0.23) !important;
+    padding: 0 3px;
+    margin: 6px 2px 0 2px;
+    font-size: 12px;
+    line-height: 1.2;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    border-radius: 3px;
+    cursor: pointer;
+    width: 98%;
+    min-height: 55px;
+    font-size: .995em;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    outline: none!important;
+    float: left;
+    word-wrap: initial;
+    margin: 2px .4%;
+    text-shadow: none;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+}
+
+.btn-primary:hover {
+    color: #fff
+}
+
+.btn-primary:visited,
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active,
+.open .dropdown-toggle.btn-primary,
+.open>.dropdown-toggle.btn-primary {
+    background: #c9635e!important;
+    border-color: rgba(189, 52, 52, 0.30) !important;
+}
+
+.btn-primary:active,
+.btn-primary.active {
+    background: #c9635e!important;
+    border-color: rgba(189, 52, 52, 0.30) !important;
+    box-shadow: none
+}
+
+.image img {
+    width: 67px;
+    height: 102px
+}
+
+.text-left {
+    text-align: left
+}
+
+.block .product {
+    display: inline-block;
+    margin-right: 20px
+}
+
+.col-19 {
+    width: 19.1%
+}
+
+.col-24 {
+    width: 24.1%;
+    min-height: 35px
+}
+
+.col-33 {
+    width: 32.4%
+}
+
+.col-49 {
+    width: 49.1%
+}
+
+.col-99 {
+    width: 99.1%
+}
+
+.col-189 {
+    width: 175px!important;
+}
+
+.box-horarios-manha,
+.box-horarios-tarde {
+    display: none
+}
+
+.check:before {
+    content: "";
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 10px;
+    width: 15px;
+    height: 15px;
+    background: url(https://homol.juh.assistentevirtual.sp.gov.br/img/check_green.png);
+    position: relative
+}
+
+.h-off {
+    opacity: .5;
+    cursor: not-allowed
+}
+
+.h-off:hover,
+.h-off:active {
+    color: #005ca3!important;
+    background: #fff url(https://homol.juh.assistentevirtual.sp.gov.br/img/bg_listras.png) repeat-x!important;
+    opacity: .5
+}
+
+.btn-circle {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    padding: 6px 0;
+    font-size: 12px;
+    line-height: 1.428571429;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    border-radius: 15px
+}
+
+.modal-header {
+    padding-bottom: 5px
+}
+
+.nextBtn {
+    padding: 10px 16px;
+    font-size: 18px
+}
+
+@media screen\0 {
+    .btn-primary {
+        border: 1px solid #e9d3d3;
+        word-wrap: normal;
+        line-height: none;
+        min-height: auto;
+        height: 55px
+    }
+    .from-user .message-inner {
+        background: rgba(234, 234, 234, .6784313725490196)
+    }
+
+}
+
+/*hack ie10*/
+.ie10 .btn-primary{
+    display: inline-block;
+    padding: 10px 0 0 0;
+}
+
+.ie10 .btn-space{
+    padding: 18px 0 0 0;
+}
+.choices-contents {
+    display: block;
+    margin-left: 13px !important;
+}
+
+.choices .choice {
+    border: 1px solid rgba(162, 70, 70, 0.23)!important;
+    color: #005ca3;
+    background-color: transparent;
+    padding: 0 11px;
+    height: 30px;
+    white-space: nowrap;
+    line-height: 30px;
+    -webkit-border-radius: 0 10px 10px 10px;
+    -moz-border-radius: 0 10px 10px 10px;
+    -ms-border-radius: 0 10px 10px 10px;
+    border-radius: 0 10px 10px 10px;
+    margin-right: 10px;
+    float: left;
+    font-size: 13px;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.2s ease-in-out;
+    text-align: center;
+    width: 100px
+}
+
+.choices .choice:hover {
+    background-color: #005ca3!important;
+    color: #fff
+}
+
+.choices {
+    width: 100%;
+    height: 40px;
+    overflow: hidden;
+    z-index: 100060;
+    background-color: #fff;
+    transition: all 0.6s ease-in-out;
+    display: none;
+}
+
+.choicesOpen {
+    display: block;
+}
+
+.choices-content {
+    display: inline-table
+}
+
+.message-inner p a {
+    color: #2039bb; 
+    text-decoration: underline;
+}
+/* Portal Poupatempo - Autor: Prodesp 2019 */
+
+#contentParente{
+    background: transparent !important;
+    font-family: 'Ubuntu', 'Roboto', sans-serif !important;
+    z-index: 1050 !important;
+}
+.message-inner .btn-primary{
+    background: #ffffff;
+    border-color: rgba(0, 92, 163, 0.75) !important;
+    color: #005ca3;
+}
+.message-inner .btn-primary:hover,
+.message-inner .btn-primary:focus{
+    background: rgba(0, 92, 163, 0.25) !important;
+}
+#textInput:focus,
+#textInput:hover{
+    box-shadow: none;
+}
+/* .thumbBt .bgAjuda,
+.thumbBt:hover .bgAjuda{
+    transition:transform 0.3s ease-out;
+    -webkit-transition:transform 0.3s ease-out;
+}
+.thumbBt:hover .bgAjuda{
+    box-shadow: 1px 0 11px 1px rgba(0, 92, 163, 0.35);
+    padding: 4px 20px;
+    transform:scaleX(1);
+} */
+.thumbBt .bgAjuda{
+    box-shadow: 1px 0 11px 1px rgba(0, 92, 163, 0.35);
+    padding: 4px 20px;
+    transform:scaleX(1);
+}
+
+/************** RESPONSIVO *************/    
+@media (max-width: 350px) { 
+    .chats-column{
+        min-width: 18rem;
+    }
+    .col-33,
+    .col-49{
+        margin: 2px !important;
+    }
+} 
+@media (max-width: 420px) {
+    .iconChat{
+        background-size: 60px;
+        height: 60px;
+        width: 60px;
+    }
+    .chats-column{
+        min-width: 18rem;
+        height: 65%;
+        /* bottom: 160px !important; */
+    }
+    .from-watson.top p:before {
+        display: none;
+    }
+    .from-watson .message-inner{
+        width: 92% !important;
+        left: -30px;
+    }
+    .col-33,
+    .col-49{
+        margin: 2px;
+        width: 48% !important;
+        min-height: 45px;
+    }
+}
+@media (max-width: 575.98px) {    
+    .chats-column{
+        height: 90% !important;
+        bottom: 17px!important;
+        display: none;
+    }
+    .chats-column.bC-On{
+        display: block;
+    }
+}    
+    
+@media (max-width: 767.98px) {    
+    .thumbBt {
+        width: auto;
+    }
+}    
+@media (min-width: 575.98px) and (max-width: 767.98px){
+    .bC-On {
+        height: 70%;
+        /* bottom: 180px!important; */
+    }
+}
+
+@media (min-width: 768px){
+    /*juh*/
+    .juhHome{
+        position: absolute;
+        width: 100%;
+        top: 280px;
+        z-index: 10;
+    }
+
+    .juhHome #contentParente{
+        height: 450px;
+        position: relative;
+        width: 100%;
+    }
+
+    .juhHome .bC-On {
+        height: 300px;
+        box-shadow: 1px 0 6px 1px rgba(45, 45, 45, 0.25);
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        border-radius: 10px;
+    }
+
+    .juhHome .btn-inicio{
+        background: #ffffff !important;
+        padding: 0 10px;
+        text-indent: 0;
+        width: auto !important;
+    }
+
+    .assistente-juh{
+        top: 15px;
+        height: 120px;
+        position: relative;
+        width: 90%;
+        margin: auto;
+    }
+    .assistente-juh img.assistente{
+        position: absolute;
+        left: 6px;
+        bottom: 10px;
+        z-index: 10;
+        -webkit-filter: drop-shadow(0px -1px 1.5px #222 );
+        filter: drop-shadow(0px -1px 1.5px #222);
+    }
+    .assistente-juh .mensagem-assistente{
+        background: #005ca3;
+        border-radius: 15px;
+        color: #ffffff;
+        float: right;
+        padding: 10px 15px;
+        position: relative;
+        text-align: left;
+        width: 84%;
+        z-index: 11;
+    }
+    .assistente-juh .mensagem-assistente::before{
+        content: "";
+        background: url(https://homol.juh.assistentevirtual.sp.gov.br/img/arrow-mensagem.png) no-repeat center;
+        bottom: -10px;
+        height: 10px;
+        left: 15px;
+        position: absolute;
+        width: 10px;
+    }
+    .assistente-juh .mensagem-assistente p:first-child{
+        font-weight: bold;
+        font-size: 120%;
+        font-style: italic;
+    }
+
+    .juhHome .headerBCss {
+        height: 0;
+        opacity: 0;
+    } 
+    .juhHome #scrollingChatsd {
+        background: none;
+        border: none;
+        height: calc(100% - 4.34rem);
+        margin: 0 .75rem;
+        padding: 10px 0;
+        width: 95%;
+    }
+    .juhHome .chats-column {       
+        background: rgba(247,247,247,.85);
+        width: 90%;
+        max-width: 100%;
+        right: auto;
+        margin: auto;
+        left: auto;
+        position: relative;
+        bottom: 0 !important;
+    }
+
+    .juhHome .btn-primary {
+        color: #005ca4;
+        border: 1px solid #005ca4 !important;
+        margin: 5px;
+        -webkit-border-radius: 8px;
+        -moz-border-radius: 8px;
+        -ms-border-radius: 8px;
+        border-radius: 8px;
+    }
+
+    .juhHome .btn-primary:hover {
+        color: #fff;
+        border: 1px solid #126f95 !important;
+        background: #305389 !important;
+    }
+
+    .juhHome .from-watson.top p:before {
+        background-color: #fff;
+        margin: -4px 0 0 0;
+        border: 2px solid rgb(49, 84, 139);
+    }
+    .juhHome .from-watson p{
+        background: #fbfbfb;
+    }
+    .juhHome .from-watson p{
+        width: 90%;
+        text-indent: 10px;
+        padding: 8px 5px 8px 5px;
+    }
+
+    .juhHome .chats-column .col-33 {
+        width: 28%;
+        text-indent: 0;
+    }
+
+    .juhHome .from-user .message-inner {
+        background: rgba(234,234,234,.90);
+    }
+
+    .juhHome .message-inner p br{
+        display: contents;
+    }
+
+    .juhHome #textInput {
+        height: 50px;
+        border: 1px solid #dcdcdc;
+        box-shadow: none;
+        padding: 3px 35px 3px 10px;
+    }
+
+    .juhHome .btnSendConversation {
+        width: 47px;
+        height: 45px;   
+        bottom: 3px;
+        right: 3px;
+        background-color: #005ca4;
+        background-image: url(https://homol.juh.assistentevirtual.sp.gov.br/img/send-home.png);
+        box-shadow: none;    
+    }
+
+    .juhHome .btnSendConversation:hover {
+        background-color: #305389; 
+    }
+    .juhHome .inputOutline{
+        display: block;
+        position: relative;
+        top: -5px;
+        width: 95% !important;
+    }
+    .juhHome #textInput,
+    .juhHome .inputOutline,
+    .juhHome .btnSendConversation {
+        -webkit-border-radius: 8px;
+        -moz-border-radius: 8px;
+        -ms-border-radius: 8px;
+        border-radius: 8px;
+    }
+
+    .juhHome .choices {
+        background-color: transparent;
+    }
+
+    .juhHome .choices .choice {
+        width: auto !important;
+        margin: 5px 0 0 0;
+    }
+
+    .juhHome .boxChoices {
+        height: calc(100% - 7.2rem)!important;
+    }
+}
+    
+@media (min-width: 768px) and (max-width: 991.98px) {    
+    .juhHome{
+        top: 260px !important;
+    }
+    .assistente-juh{
+        width: 100%;
+    }
+    .assistente-juh .mensagem-assistente{
+        width: 75% !important;
+    }
+    .assistente-juh img.assistente{
+        bottom: 22px !important;
+        left: 35px !important;
+    }
+    .assistente-juh .mensagem-assistente p{
+        font-size: 90% !important;
+    }
+    .juhHome .bC-On{
+        height: 280px !important;
+        top: -12px;
+    }
+}    
+    
+@media (min-width: 992px) and (max-width: 1199.98px) {    
+    
+}    
+@media (min-width: 1200px) {    
+      
+}
